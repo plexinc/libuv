@@ -323,7 +323,7 @@ static int uv__fsevents_create_stream(uv_loop_t* loop, CFArrayRef paths) {
   ctx.release = NULL;
   ctx.copyDescription = NULL;
 
-  latency = 0.05;
+  latency = 0.00;
 
   /* Explanation of selected flags:
    * 1. NoDefer - without this flag, events that are happening continuously
