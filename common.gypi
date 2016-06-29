@@ -79,7 +79,13 @@
             'LinkIncremental': 1, # disable incremental linking
           },
         },
-      }
+      },
+      'Debug_x64': {
+        'inherit_from': ['Debug'],
+      },
+      'Release_x64': {
+        'inherit_from': ['Release'],
+      },
     },
     'msvs_settings': {
       'VCCLCompilerTool': {
