@@ -60,7 +60,7 @@ void uv__platform_loop_delete(uv_loop_t* loop) {
 
 uint64_t uv__hrtime(uv_clocktype_t type) {
   struct timespec ts;
-  clock_gettime(CLOCK_MONOTONIC, &ts);
+  clock_gettime(CLOCK_REALTIME, &ts);
   return (((uint64_t) ts.tv_sec) * NANOSEC + ts.tv_nsec);
 }
 

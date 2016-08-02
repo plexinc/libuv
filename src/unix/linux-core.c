@@ -441,7 +441,7 @@ uint64_t uv__hrtime(uv_clocktype_t type) {
     }
   }
 
-  clock_id = CLOCK_MONOTONIC;
+  clock_id = CLOCK_REALTIME;
   if (type == UV_CLOCK_FAST)
     clock_id = fast_clock_id;
 
