@@ -3,6 +3,9 @@ project(libuv C)
 
 option(BUILD_SHARED_LIBS "" OFF)
 
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGET)
+
 add_library(uv
   src/fs-poll.c
   src/inet.c
@@ -60,17 +63,13 @@ add_library(uv
   $<$<PLATFORM_ID:Linux>:
     src/unix/linux-core.c
     src/unix/linux-inotify.c
-    src/unix/linux-syscalls.c
-    src/unix/linux-syscalls.h>
+    src/unix/linux-syscalls.c>
   $<$<PLATFORM_ID:Darwin>:
     src/unix/darwin.c
     src/unix/fsevents.c
     src/unix/darwin-proctitle.c
     src/unix/pthread-barrier.c>
-  $<$<PLATFORM_ID:Android>:
-    src/unix/linux-core.c
-    src/unix/linux-inotify.c
-    src/unix/linux-syscalls.c
+  $<$<STREQUAL:${PLEX_PLATFORM},Android>:
     src/unix/pthread-fixes.c
     src/unix/android-ifaddrs.c
     src/unix/pthread-barrier.c>
@@ -103,7 +102,7 @@ target_compile_options(uv PRIVATE
 target_link_libraries(uv Threads::Threads
   $<$<NOT:$<PLATFORM_ID:Windows>>:m>
   $<$<PLATFORM_ID:Linux>:dl>
-  $<$<PLATFORM_ID:Linux>:rt>
+  $<$<STREQUAL:${PLEX_PLATFORM},Linux>:rt>
   $<$<PLATFORM_ID:Windows>:advapi32>
   $<$<PLATFORM_ID:Windows>:iphlpapi>
   $<$<PLATFORM_ID:Windows>:psapi>
