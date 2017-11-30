@@ -3,8 +3,8 @@ project(libuv C)
 
 option(BUILD_SHARED_LIBS "" OFF)
 
-#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-#conan_basic_setup(TARGET)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGET)
 
 add_library(uv
   src/fs-poll.c
