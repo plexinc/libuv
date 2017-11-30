@@ -82,6 +82,8 @@ target_compile_definitions(uv PRIVATE
   $<$<PLATFORM_ID:Darwin>:_DARWIN_USE_64_BIT_INODE=1 _DARWIN_UNLIMITED_SELECT=1>
 )
 
+set_target_properties(uv PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
 find_package(Threads)
 
 target_include_directories(uv PRIVATE
