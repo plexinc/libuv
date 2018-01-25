@@ -73,6 +73,9 @@ add_library(uv
     src/unix/fsevents.c
     src/unix/darwin-proctitle.c
     src/unix/pthread-barrier.c>
+  $<$<PLATFORM_ID:FreeBSD>:
+    src/unix/freebsd.c
+    src/unix/kqueue.c>
   $<$<STREQUAL:${PLEX_PLATFORM},Android>:
     src/unix/pthread-fixes.c
     src/unix/android-ifaddrs.c
