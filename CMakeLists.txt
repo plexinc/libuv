@@ -4,6 +4,18 @@ project(libuv C)
 option(BUILD_SHARED_LIBS "" OFF)
 option(DISABLE_CONAN "" OFF)
 
+message(STATUS PLEX_PLATFORM = ${PLEX_PLATFORM})
+
+if (PLEX_PLATFORM STREQUAL "Windows")
+  message(STATUS "No proctitle.c on Windows")
+  set(USE_PROCTITLE FALSE)
+elseif (PLEX_PLATFORM STREQUAL "FreeBSD")
+  message(STATUS "No proctitle.c on FreeBSD")
+  set(USE_PROCTITLE FALSE)
+else()
+  set(USE_PROCTITLE TRUE)
+endif()
+
 add_library(uv
   src/fs-poll.c
   src/inet.c
@@ -57,8 +69,10 @@ add_library(uv
     src/unix/thread.c
     src/unix/timer.c
     src/unix/tty.c
-    src/unix/proctitle.c
     src/unix/udp.c>
+
+  $<$<BOOL:${USE_PROCTITLE}>:
+    src/unix/proctitle.c>
 
   $<$<PLATFORM_ID:Linux>:
     src/unix/linux-core.c
@@ -108,7 +122,6 @@ target_compile_options(uv PRIVATE
   -Wno-unused-parameter>
   $<$<PLATFORM_ID:Linux>:-ansi>
 )
-
 
 target_link_libraries(uv Threads::Threads
   $<$<NOT:$<PLATFORM_ID:Windows>>:m>
