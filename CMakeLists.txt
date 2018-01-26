@@ -19,6 +19,7 @@ elseif (PLEX_PLATFORM STREQUAL "FreeBSD")
   set(USE_PROCTITLE FALSE)
 else()
   set(USE_PROCTITLE TRUE)
+endif()
 
 add_library(uv
   src/fs-poll.c
