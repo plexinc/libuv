@@ -126,6 +126,7 @@ target_compile_options(uv PRIVATE
 target_link_libraries(uv Threads::Threads
   $<$<NOT:$<PLATFORM_ID:Windows>>:m>
   $<$<PLATFORM_ID:Linux>:dl>
+  $<$<PLATFORM_ID:FreeBSD>:kvm>
   $<$<STREQUAL:${PLEX_PLATFORM},Linux>:rt>
   $<$<PLATFORM_ID:Windows>:advapi32>
   $<$<PLATFORM_ID:Windows>:iphlpapi>
