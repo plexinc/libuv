@@ -4,6 +4,11 @@ project(libuv C)
 option(BUILD_SHARED_LIBS "" OFF)
 option(DISABLE_CONAN "" OFF)
 
+if(NOT DISABLE_CONAN)
+  include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+  conan_basic_setup(TARGET)
+endif()
+
 message(STATUS PLEX_PLATFORM = ${PLEX_PLATFORM})
 
 if (PLEX_PLATFORM STREQUAL "Windows")
@@ -14,7 +19,6 @@ elseif (PLEX_PLATFORM STREQUAL "FreeBSD")
   set(USE_PROCTITLE FALSE)
 else()
   set(USE_PROCTITLE TRUE)
-endif()
 
 add_library(uv
   src/fs-poll.c
@@ -50,7 +54,6 @@ add_library(uv
     src/win/util.c
     src/win/winapi.c
     src/win/winsock.c>
-
   $<$<NOT:$<PLATFORM_ID:Windows>>:
     src/unix/async.c
     src/unix/core.c
@@ -78,18 +81,15 @@ add_library(uv
     src/unix/linux-core.c
     src/unix/linux-inotify.c
     src/unix/linux-syscalls.c>
-
   $<$<PLATFORM_ID:Darwin>:
     src/unix/darwin.c
     src/unix/kqueue.c
     src/unix/fsevents.c
     src/unix/darwin-proctitle.c
     src/unix/pthread-barrier.c>
-
   $<$<PLATFORM_ID:FreeBSD>:
     src/unix/freebsd.c
     src/unix/kqueue.c>
-
   $<$<STREQUAL:${PLEX_PLATFORM},Android>:
     src/unix/pthread-fixes.c
     src/unix/android-ifaddrs.c
