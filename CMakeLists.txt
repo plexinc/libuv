@@ -119,7 +119,6 @@ target_compile_options(uv PRIVATE
   -Wall
   -Wextra
   -Wno-unused-parameter>
-  $<$<PLATFORM_ID:Linux>:-ansi>
 )
 
 target_link_libraries(uv Threads::Threads
