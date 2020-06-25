@@ -89,8 +89,11 @@ add_library(uv
   $<$<PLATFORM_ID:FreeBSD>:
     src/unix/freebsd.c
     src/unix/kqueue.c>
-  $<$<STREQUAL:${PLEX_PLATFORM},Android>:
+  $<$<PLATFORM_ID:Android>:
     src/unix/pthread-fixes.c
+    src/unix/linux-core.c
+    src/unix/linux-inotify.c
+    src/unix/linux-syscalls.c
     src/unix/android-ifaddrs.c
     src/unix/pthread-barrier.c>
 )
